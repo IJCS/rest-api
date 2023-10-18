@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2023 a las 13:36:32
+-- Tiempo de generación: 19-10-2023 a las 01:35:16
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `rest-api`
 --
+CREATE DATABASE IF NOT EXISTS `rest-api` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `rest-api`;
 
 -- --------------------------------------------------------
 
@@ -27,7 +29,6 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `libros`
 --
 -- Creación: 18-10-2023 a las 11:26:01
--- Última actualización: 18-10-2023 a las 11:28:33
 --
 
 CREATE TABLE `libros` (
