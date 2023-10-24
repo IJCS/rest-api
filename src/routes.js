@@ -8,3 +8,5 @@ router.post('/libro', libro.add);
 router.delete('/libro', libro.remove)
 router.put('/libro', libro.modify)
 router.get('/libro', libro.getOne)
+router.get('/isbn',libro.getISBN)
+router.delete('/isbn',libro.rmvISBN)

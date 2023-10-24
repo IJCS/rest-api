@@ -29,6 +29,18 @@ class LibrosController{
     const [result] = await pool.query(`UPDATE libros SET nombre = (?), autor=(?), categoria=(?), \`año-publicacion\` = (?), ISBN= (?) WHERE id = (?)`, [carga.nombre,carga.autor,carga.categoria,carga.año,carga.ISBN,carga.id]);
     res.json({"Registros modificados":result.affectedRows});
   }
+
+  async getISBN(req,res){
+    const carga = req.body;
+    const [result] = await pool.query(`SELECT * FROM libros WHERE ISBN=(?)`,[carga.ISBN]);
+    res.json(result);
+  }
+
+  async rmvISBN(req,res){
+    const carga = req.body;
+    const [result] = await pool.query(`DELETE FROM libros WHERE id =(?)`,[carga.ISBN]);
+    res.json({"Registros eliminados":result.affectedRows});
+  }
 }
 
 export const libro = new LibrosController();
