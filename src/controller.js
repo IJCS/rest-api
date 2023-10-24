@@ -11,14 +11,17 @@ class LibrosController{
       const carga = req.body;
       const [result] = await pool.query(`SELECT * FROM libros WHERE id=(?)`,[carga.id]);
       res.json(result);
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      res.json({"Error":e});
     }
   }
 
   async add(req, res){
     try {
       const carga = req.body;
+      if(carga.nombre && carga.autor && carga.categoria && carga.año && carga.ISBN){
+        throw new Error("Datos Requeridos");
+      }
       const [result] = await pool.query(`INSERT INTO libros (nombre , autor , categoria , \`año-publicacion\` , ISBN ) VALUES (?, ?, ?, ?, ?)`,[carga.nombre,carga.autor,carga.categoria,carga.año,carga.ISBN]);
       res.json({"ID Insertado":result.insertId});
     } catch (e) {
@@ -27,11 +30,14 @@ class LibrosController{
   }
 
   async remove(req, res){
-    try {
+    try
+    {
       const carga = req.body;
       const [result] = await pool.query(`DELETE FROM libros WHERE id =(?)`,[carga.id]);
       res.json({"Registros eliminados":result.affectedRows});
-    } catch (e) {
+    }
+    catch (e)
+    {
       res.json({"Error":e});
     }
 
