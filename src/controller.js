@@ -7,21 +7,34 @@ class LibrosController{
   }
 
   async getOne(req, res){
-    const carga = req.body;
-    const [result] = await pool.query(`SELECT * FROM libros WHERE id=(?)`,[carga.id]);
-    res.json(result);
+    try {
+      const carga = req.body;
+      const [result] = await pool.query(`SELECT * FROM libros WHERE id=(?)`,[carga.id]);
+      res.json(result);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async add(req, res){
-    const carga = req.body;
-    const [result] = await pool.query(`INSERT INTO libros (nombre , autor , categoria , \`año-publicacion\` , ISBN ) VALUES (?, ?, ?, ?, ?)`,[carga.nombre,carga.autor,carga.categoria,carga.año,carga.ISBN]);
-    res.json({"ID Insertado":result.insertId});
+    try {
+      const carga = req.body;
+      const [result] = await pool.query(`INSERT INTO libros (nombre , autor , categoria , \`año-publicacion\` , ISBN ) VALUES (?, ?, ?, ?, ?)`,[carga.nombre,carga.autor,carga.categoria,carga.año,carga.ISBN]);
+      res.json({"ID Insertado":result.insertId});
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async remove(req, res){
-    const carga = req.body;
-    const [result] = await pool.query(`DELETE FROM libros WHERE id =(?)`,[carga.id]);
-    res.json({"Registros eliminados":result.affectedRows});
+    try {
+      const carga = req.body;
+      const [result] = await pool.query(`DELETE FROM libros WHERE id =(?)`,[carga.id]);
+      res.json({"Registros eliminados":result.affectedRows});
+    } catch (e) {
+      res.json({"Error":e});
+    }
+
   }
 
   async modify(req, res){
