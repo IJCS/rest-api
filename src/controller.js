@@ -19,7 +19,12 @@ class LibrosController{
   async add(req, res){
     try {
       const carga = req.body;
-      if(carga.nombre && carga.autor && carga.categoria && carga.año && carga.ISBN){
+
+      if (typeof carga !== 'object' || Array.isArray(carga)) {
+        throw new Error("JSON no obtenido");
+      }
+
+      if(!carga.nombre || !carga.autor || !carga.categoria || !carga.año || !carga.ISBN){
         throw new Error("Datos Requeridos");
       }
       const [result] = await pool.query(`INSERT INTO libros (nombre , autor , categoria , \`año-publicacion\` , ISBN ) VALUES (?, ?, ?, ?, ?)`,[carga.nombre,carga.autor,carga.categoria,carga.año,carga.ISBN]);
